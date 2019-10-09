@@ -56,45 +56,18 @@ class Videos extends React.Component {
         'justifyContent': 'space-evenly',
         'padding': '30px'
       }}>
-        <button
-            style={{
-              width: '30%',
-              cursor: 'pointer',
-            }}
-            onClick={() => this.openModal('icS__xweWnU')}>
-          <img
-            style={{
-              width: '100%'
-            }}            
-            src="https://img.youtube.com/vi/icS__xweWnU/0.jpg" alt="Snow" />
-        </button>
-        <button
-          style={{
-            width: '30%',
-            cursor: 'pointer',
-          }}
-          onClick={() => this.openModal('wFMz-AZjaBI')}
-        >
-          <img
-            style={{
-              width: '100%'
-            }}
-            src="https://img.youtube.com/vi/wFMz-AZjaBI/0.jpg" alt="Snow" />
-        </button>
-        <button
-          style={{
-            width: '30%',
-            cursor: 'pointer',
-          }}
-          onClick={() => this.openModal('n5uz7egB9tA')}
-        >
-          <img 
-            style={{
-              width: '100%'
-            }}
-            src="https://img.youtube.com/vi/n5uz7egB9tA/0.jpg" alt="Snow" />
-        </button>
-
+        <VideostartButton
+          videoId="n5uz7egB9tA"
+          openModal={this.openModal}
+        />
+        <VideostartButton
+          videoId="icS__xweWnU"
+          openModal={this.openModal}
+        />
+        <VideostartButton
+          videoId="wFMz-AZjaBI"
+          openModal={this.openModal}
+        />
 
         <Modal
           isOpen={this.state.isOpen}
@@ -119,6 +92,27 @@ class Videos extends React.Component {
       </div>
     )
   }
+}
+
+function VideostartButton(props) {
+  const thumnailUrl = 'https://img.youtube.com/vi/' + props.videoId + '/0.jpg'
+  
+  return (
+    
+    <button
+      style={{
+        width: '30%',
+        cursor: 'pointer',
+      }}
+      onClick={() => props.openModal(props.videoId)}>
+      <img
+        style={{
+          width: '100%'
+        }}            
+        src={thumnailUrl}
+        alt="Snow" />
+    </button>
+  )
 }
 
 
