@@ -16,13 +16,14 @@ class Videos extends React.Component {
   constructor () {
     super()
     this.state = {
-      isOpen: false
+      isOpen: false,
+      videoId: null
     }
     this.openModal = this.openModal.bind(this)
   }
 
-  openModal () {
-    this.setState({isOpen: true})
+  openModal (videoId) {
+    this.setState({isOpen: true, videoId})
   }
 
 
@@ -37,13 +38,15 @@ class Videos extends React.Component {
         <ModalVideo
           channel='youtube'
           isOpen={this.state.isOpen}
-          videoId="L61p2uyiMSo"
+          videoId={this.state.videoId}
           onClose={() => this.setState({
             isOpen: false,
             videoId: null
           })}
         />
-        <button onClick={this.openModal}>Open</button>
+        <button onClick={() => this.openModal('icS__xweWnU')}>Open1</button>
+        <button onClick={() => this.openModal('wFMz-AZjaBI')}>Open2</button>
+        <button onClick={() => this.openModal('n5uz7egB9tA')}>Open3</button>
       </div>
     )
   }
