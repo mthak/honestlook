@@ -7,6 +7,10 @@
     "react-dom": "^16.10.2",
     "react-scripts": "3.2.0",
     "recordrtc": "^5.5.8"
+    "react-modal": "^3.10.1",
+    "react-modal-video": "^1.2.3",
+    "react-scripts": "3.2.0",
+    "react-youtube": "^7.9.0"
   },
   "scripts": {
     "start": "react-scripts start",
