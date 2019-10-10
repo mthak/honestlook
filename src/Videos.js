@@ -138,40 +138,34 @@ class Videos extends React.Component {
 
   render () {
     return (
-
-      <div style={{
-        'display': 'flex',
-        'justifyContent': 'space-evenly',
-        'padding': '30px'
-      }}>
-        <VideostartButton
-          videoId="n5uz7egB9tA"
-          openModal={this.openModal}
-        />
-        <VideostartButton
-          videoId="icS__xweWnU"
-          openModal={this.openModal}
-        />
-        <VideostartButton
-          videoId="wFMz-AZjaBI"
-          openModal={this.openModal}
-        />
-
-
-
-
-
-        <div>{this.state.uploadSuccess ? 'Success' : 'Not Success'}</div>
-        <div>
-          <Webcam src={this.state.src}/>
-        </div>
+      <div>
+        {/* <div>{this.state.uploadSuccess ? 'Success' : 'Not Success'}</div>
         {this.state.uploading
           ? <div>Uploading...</div>
           : null
-        }
+        } */}
+        <div>
+          <Webcam src={this.state.src}/>
+        </div>
 
-
-
+        <div style={{
+          'display': 'flex',
+          'justifyContent': 'space-evenly',
+          'padding': '30px'
+        }}>
+          <VideostartButton
+            videoId="n5uz7egB9tA"
+            openModal={this.openModal}
+          />
+          <VideostartButton
+            videoId="icS__xweWnU"
+            openModal={this.openModal}
+          />
+          <VideostartButton
+            videoId="wFMz-AZjaBI"
+            openModal={this.openModal}
+          />
+        </div>
 
 
         <Modal
