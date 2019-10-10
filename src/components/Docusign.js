@@ -8,6 +8,9 @@ class Docusign extends React.Component {
      const script = document.createElement("script");
 
      script.src = "https://demo.docusign.net/clickapi/sdk/latest/docusign-click.js";
+     script.async = true;
+
+     document.body.appendChild(script);
      
 
      // const script2
@@ -20,7 +23,7 @@ class Docusign extends React.Component {
   render() {
     return (
       <div>
-        <div id="ds-clickwrap"></div>
+        <div id="ds-clickwrap">hello world</div>
       </div>
     );
   }
