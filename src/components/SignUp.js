@@ -2,11 +2,50 @@ import {Button, Col, Container, Form, FormGroup, Input, Label, Row} from "reacts
 import React from "react";
 import {withRouter, Redirect} from "react-router-dom";
 import '../stylesheet/signup.css';
+import axios from 'axios';
+import Swal from 'sweetalert2';
 
 class SignUp extends React.Component {
     constructor(props){
         super(props);
-        this.state = {};
+        this.state = {
+            isOver18: false,
+            isConsent: false,
+        };
+    }
+
+    handleChange(event) {
+        let values = this.state;
+        values[event.target.name] = event.target.value;
+        this.setState(values);
+    }
+
+    handleSignup(){
+        let payload = {"data": this.state};
+        axios.post('http://34.212.178.4:5000/adduser', payload)
+            .then(function (response) {
+                if(response.status === 200){
+                    Swal.fire({
+                        title: 'Success!',
+                        text: 'Successfully created',
+                        type: 'success',
+                        confirmButtonText: 'Next'
+                    })
+                        .then(()=>{
+                            window.location.assign('http://localhost:3000/signin')
+                        })
+                } else{
+                    Swal.fire({
+                        title: 'Error!',
+                        text: response.data.message,
+                        type: 'error',
+                        confirmButtonText: 'Try again'
+                    })
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+            })
     }
 
     render(){
@@ -21,35 +60,41 @@ class SignUp extends React.Component {
                                 <FormGroup>
                                     <Label for="name">Name</Label>
                                     <Input type="text" name="name" id="name" placeholder="name"
-                                           // style={{"width":"50%"}}
-                                        // onChange={this.handleChange.bind(this)}
+                                        onChange={this.handleChange.bind(this)}
                                     />
                                 </FormGroup>
                                 <FormGroup>
                                     <Label for="exampleEmail">Email</Label>
                                     <Input type="email" name="email" id="exampleEmail" placeholder="email"
-                                        // onChange={this.handleChange.bind(this)}
+                                        onChange={this.handleChange.bind(this)}
                                     />
                                 </FormGroup>
                                 <FormGroup>
                                     <Label for="examplePassword">Password</Label>
                                     <Input type="password" name="password" id="examplePassword" placeholder="password"
-                                        // onChange={this.handleChange.bind(this)}
+                                           onChange={this.handleChange.bind(this)}
                                     />
                                 </FormGroup>
                                 <FormGroup>
                                     <Label for="phone">Phone</Label>
                                     <Input type="text" name="phone" id="phone" placeholder="phone number"
-                                        // onChange={this.handleChange.bind(this)}
+                                        onChange={this.handleChange.bind(this)}
                                     />
                                 </FormGroup>
                                 <FormGroup check>
                                     <Label check>
-                                        <Input type="radio" /> Are you over 18?
+                                        <Input type="radio" id="age"
+                                        onClick={()=> document.getElementById("age").checked == true &&
+                                        this.setState({isOver18: true})}
+                                        /> Are you over 18?
                                     </Label>
                                 </FormGroup>
 
-                                <Button className="signupbtn">Sign Up</Button>
+                                <Button
+                                    onClick={this.handleSignup.bind(this)}
+                                    className="signupbtn">Sign Up
+
+                                </Button>
                             </Form>
                         </Col>
                         <Col xs="4"></Col>
