@@ -4,6 +4,7 @@ import {withRouter, Redirect} from "react-router-dom";
 import '../stylesheet/signup.css';
 import axios from 'axios';
 import Swal from 'sweetalert2';
+import Stepper from 'react-stepper-horizontal'
 
 class SignUp extends React.Component {
     constructor(props){
@@ -62,13 +63,16 @@ class SignUp extends React.Component {
     render(){
         return (
             <Container fluid = {true} className="sign-form" >
-                {/*<div className="sign-form">*/}
-                    <h1 className="text-center">HonestLook Sign-Up Form</h1>
+                    <h1 className="text-center" style={{"font-family": "Georgia"}}>HonestLook Sign-Up Form</h1>
+                    <h2 className="text-center">Help us get a better loot at your experience with videos</h2>
+                    <div>
+                        <Stepper steps={ [{title: 'Sign Up'}, {title: 'Consent'}, {title: 'Finish'}] } activeStep={ 0 } />
+                    </div>
                     <Row>
                         <Col xs="4"></Col>
                         <Col xs="4">
-                            <Form>
-                                <FormGroup>
+                                <Form>
+                                    <FormGroup>
                                     <Label for="name">Name</Label>
                                     <Input type="text" name="name" id="name" placeholder="name"
                                         onChange={this.handleChange.bind(this)}
@@ -112,7 +116,6 @@ class SignUp extends React.Component {
                         </Col>
                         <Col xs="4"></Col>
                     </Row>
-                {/*</div>*/}
             </Container>
         );
     }
