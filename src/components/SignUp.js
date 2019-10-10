@@ -48,6 +48,17 @@ class SignUp extends React.Component {
             })
     }
 
+    checkAge(){
+        if(! this.state.isOver18){
+            Swal.fire({
+                title: 'Error!',
+                text: 'You need to be over 18 to continue.',
+                type: 'error',
+                confirmButtonText: 'Go back'
+            })
+        }
+    }
+
     render(){
         return (
             <Container fluid = {true} className="sign-form" >
@@ -90,10 +101,12 @@ class SignUp extends React.Component {
                                 </FormGroup>
 
                                 <Button
-                                    onClick={this.handleSignup.bind(this)}
+                                    onClick={this.state.isOver18 ? this.handleSignup.bind(this) : this.checkAge.bind(this) }
                                     className="signupbtn">Sign Up
-
                                 </Button>
+                                <div style={{"paddingLeft": "70%"}}>
+                                    <a href="http://localhost:3000/signin"> Already have an account? </a>
+                                </div>
                             </Form>
                         </Col>
                         <Col xs="4"></Col>

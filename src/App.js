@@ -5,8 +5,9 @@ import {Provider} from 'react-redux';
 import { createStore } from 'redux'
 import SignUp from './components/SignUp';
 import SignIn from './components/SignIn';
+import Videos from './Videos';
 import { Col, Row, Button, Form, FormGroup, Label, Input, FormText, Container } from 'reactstrap';
-import Videos from './Videos'
+
 
 function App() {
     return (
@@ -14,6 +15,7 @@ function App() {
                 <Switch>
                     <Route path="/signup" exact component={SignUp} />
                     <Route path="/signin" exact component={SignIn} />
+                    <Route path="/videos" exact component={Videos} />
                 </Switch>
             </Router>
         );
