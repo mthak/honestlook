@@ -4,6 +4,7 @@ import {withRouter, Redirect} from "react-router-dom";
 import '../stylesheet/signup.css';
 import axios from "axios";
 import Swal from "sweetalert2";
+import Stepper from "react-stepper-horizontal";
 
 class SignIn extends React.Component{
     constructor(props) {
@@ -49,6 +50,9 @@ class SignIn extends React.Component{
         return (
             <Container fluid = {true} className="sign-form" >
                     <h1 className="text-center">HonestLook Sign In</h1>
+                    <div>
+                        <Stepper steps={ [{title: 'Sign Up'}, {title: 'Consent'}, {title: 'Finish'}] } activeStep={ 2 } />
+                    </div>
                     <Row>
                         <Col xs="4"></Col>
                         <Col xs="4">
@@ -68,7 +72,16 @@ class SignIn extends React.Component{
                                 <Button className="signinbtn"
                                         onClick={this.handleSignin.bind(this)}
                                 >Sign In</Button>
-                                <Button className="consentbtn">Consent</Button>
+                                <Button className="consentbtn"
+                                        // onClick={()=>{
+                                        //     docuSignClick.Clickwrap.render({
+                                        //         environment: 'https://demo.docusign.net',
+                                        //         accountId: 'aac8309d-b03d-49a9-8e60-9030f783691b',
+                                        //         clickwrapId: '5dd120eb-3bdf-4493-a69f-f1c0b51eff48',
+                                        //         clientUserId: 'UNIQUE_USER_ID'
+                                        //     }, '#ds-clickwrap');
+                                        // }}
+                                >Consent</Button>
                             </Form>
                         </Col>
                         <Col xs="4"></Col>
