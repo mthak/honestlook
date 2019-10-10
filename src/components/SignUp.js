@@ -13,7 +13,7 @@ class SignUp extends React.Component {
         return (
             <Container fluid = {true} className="sign-form" >
                 {/*<div className="sign-form">*/}
-                    <h1 className="text-center">HonestLook Sign Up Form</h1>
+                    <h1 className="text-center">HonestLook Sign-Up Form</h1>
                     <Row>
                         <Col xs="4"></Col>
                         <Col xs="4">
