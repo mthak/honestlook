@@ -21,7 +21,7 @@ class SignUp extends React.Component {
     }
 
     handleSignup(){
-        var payload = {"data": this.state};
+        let payload = {"data": this.state};
         axios.post('http://34.212.178.4:5000/adduser', payload)
             .then(function (response) {
                 if(response.status === 200){
@@ -34,7 +34,7 @@ class SignUp extends React.Component {
                         .then(()=>{
                             window.location.assign('http://localhost:3000/signin')
                         })
-                }else{
+                } else{
                     Swal.fire({
                         title: 'Error!',
                         text: response.data.message,
@@ -62,7 +62,8 @@ class SignUp extends React.Component {
     render(){
         return (
             <Container fluid = {true} className="sign-form" >
-                    <h1 className="text-center">HonestLook Sign Up Form</h1>
+                {/*<div className="sign-form">*/}
+                    <h1 className="text-center">HonestLook Sign-Up Form</h1>
                     <Row>
                         <Col xs="4"></Col>
                         <Col xs="4">
