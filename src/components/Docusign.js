@@ -1,14 +1,29 @@
 import React from 'react';
+// import docuSign from "docusign-esign"
 
-class DocusignModal extends React.Component {
+
+class Docusign extends React.Component {
+
+  componentDidMount () {
+     const script = document.createElement("script");
+
+     script.src = "https://demo.docusign.net/clickapi/sdk/latest/docusign-click.js";
+     
+
+     // const script2
+     // script.async = true;
+
+
+
+  }
+
   render() {
-    const modal = this.props.showModal ? <div id="ds-clickwrap"></div> : null;
     return (
       <div>
-        {modal}
+        <div id="ds-clickwrap"></div>
       </div>
     );
   }
 }
 
-export default DocusignModal;
+export default Docusign;
