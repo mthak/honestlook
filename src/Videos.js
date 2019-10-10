@@ -2,6 +2,10 @@
 import React from 'react'
 import YouTube from 'react-youtube';
 import Modal from 'react-modal';
+import { captureUserMedia, S3Upload } from './AppUtils';
+import Webcam from './Webcam';
+import RecordRTC from 'recordrtc';
+
 
 const customStyles = {
   content : {
@@ -14,20 +18,41 @@ const customStyles = {
   }
 };
 
+
+
+const hasGetUserMedia = !!(navigator.getUserMedia || navigator.webkitGetUserMedia ||
+  navigator.mozGetUserMedia || navigator.msGetUserMedia);
+
+
 class Videos extends React.Component {
 
   constructor () {
     super()
     this.state = {
+      // For Playing a video
       isOpen: false,
-      videoId: null
+      videoId: null,
+
+      // For Recording a webcam
+      recordVideo: null,
+      src: null,
+      uploadSuccess: null,
+      uploading: false
     }
+
+    // For Playing a video
     this.openModal = this.openModal.bind(this)
     this.closeModal = this.closeModal.bind(this);
     this.startVideo = this.startVideo.bind(this)
     this.endVideo = this.endVideo.bind(this)
+
+    // For Recording a webcam
+    this.requestUserMedia = this.requestUserMedia.bind(this);
+    this.startRecord = this.startRecord.bind(this);
+    this.stopRecord = this.stopRecord.bind(this);
   }
 
+  // For Playing a video
   openModal (videoId) {
     this.setState({isOpen: true, videoId})
     this.startVideo()
@@ -40,10 +65,73 @@ class Videos extends React.Component {
 
   startVideo() {
     console.log('startVideo')
+    this.startRecord()
   }
 
   endVideo() {
     console.log('endVideo')
+    this.stopRecord()
+  }
+
+  // For Recording a webcam
+  componentDidMount() {
+    if(!hasGetUserMedia) {
+      alert("Your browser cannot stream from your webcam. Please switch to Chrome or Firefox.");
+      return;
+    }
+    this.requestUserMedia();
+  }
+
+  requestUserMedia() {
+    console.log('requestUserMedia')
+    captureUserMedia((stream) => {
+
+      var binaryData = [];
+      binaryData.push(stream);
+      // TODO Set correct Blob type
+      const src = window.URL.createObjectURL(new Blob(binaryData, {type: "application/zip"}))
+
+      this.setState({ src });
+      console.log('setting state', this.state)
+    });
+  }
+
+
+  startRecord() {
+    captureUserMedia((stream) => {
+      this.state.recordVideo = RecordRTC(stream, { type: 'gif' });
+      this.state.recordVideo.startRecording();
+    });
+
+  }
+
+  stopRecord() {
+    this.state.recordVideo.stopRecording(() => {
+      // TODO Delete this line that is for debug
+      this.state.recordVideo.save('./video.webm');
+
+      let params = {
+        type: 'video/webm',
+        data: this.state.recordVideo.blob,
+        id: Math.floor(Math.random()*90000) + 10000
+      }
+
+      this.setState({ uploading: true });
+
+      S3Upload(params)
+      
+      // TODO Send Request to S3
+      // S3Upload(params)
+      // .then((success) => {
+      //   console.log('enter then statement')
+      //   if(success) {
+      //     console.log(success)
+      //     this.setState({ uploadSuccess: true, uploading: false });
+      //   }
+      // }, (error) => {
+      //   alert(error, 'error occurred. check your aws settings and try again.')
+      // })
+    });
   }
 
 
@@ -68,6 +156,23 @@ class Videos extends React.Component {
           videoId="wFMz-AZjaBI"
           openModal={this.openModal}
         />
+
+
+
+
+
+        <div>{this.state.uploadSuccess ? 'Success' : 'Not Success'}</div>
+        <div>
+          <Webcam src={this.state.src}/>
+        </div>
+        {this.state.uploading
+          ? <div>Uploading...</div>
+          : null
+        }
+
+
+
+
 
         <Modal
           isOpen={this.state.isOpen}
@@ -115,5 +220,16 @@ function VideostartButton(props) {
   )
 }
 
+
+// key id: value: title
+const videoIdAndTitle = {
+  'n5uz7egB9tA': '',
+  'icS__xweWnU': '',
+  'wFMz-AZjaBI': '',
+}
+
+function getVideoTitle(id) {
+  return videoIdAndTitle[id]
+}
 
 export default Videos;
