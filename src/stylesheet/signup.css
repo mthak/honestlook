@@ -1,0 +1,38 @@
+.sign-form {
+    /*transition: .5s ease;*/
+    position: absolute;
+    top: 50%;
+    left: 50%;
+
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    /*text-align: center;*/
+}
+
+.signupbtn {
+    position: relative;
+    /*top: 50%;*/
+    left: 50%;
+    transform: translate(-50%);
+    background-color: #9acdec !important;
+}
+
+.signinbtn {
+    /*position: relative;*/
+    /*!*top: 50%;*!*/
+    /*left: 50%;*/
+    /*transform: translate(-50%);*/
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    background-color: #9acdec !important;
+}
+
+.consentbtn {
+    position: relative;
+    /*top: 50%;*/
+    left: 80%;
+    bottom: 0;
+    transform: translate(-50%);
+    background-color: #9acdec !important;
+}
