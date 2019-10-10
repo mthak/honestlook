@@ -154,15 +154,15 @@ class Videos extends React.Component {
           'padding': '30px'
         }}>
           <VideostartButton
-            videoId="n5uz7egB9tA"
+            videoId="mEh5GiQ4_Yk"
             openModal={this.openModal}
           />
           <VideostartButton
-            videoId="icS__xweWnU"
+            videoId="-FBiSOXGV4g"
             openModal={this.openModal}
           />
           <VideostartButton
-            videoId="wFMz-AZjaBI"
+            videoId="y7yNdP27vH8"
             openModal={this.openModal}
           />
         </div>
